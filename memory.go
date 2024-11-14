@@ -16,7 +16,7 @@ func CheckStats(print ...bool) (alloc, sys uint64) {
 	runtime.ReadMemStats(&stats)
 	if len(print) > 0 && print[0] {
 		Printer(
-			"alloc: %dMB - total: %dMB / sys: %dMB\n",
+			"memory stats: alloc %dMB - total %dMB / sys %dMB\n",
 			stats.Alloc/1024/1024,
 			stats.TotalAlloc/1024/1024,
 			stats.Sys/1024/1024,
