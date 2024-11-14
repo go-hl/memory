@@ -17,10 +17,9 @@ import (
 )
 
 func main() {
-	var (
-		mp memory.Peak
-		// cancel context.CancelFunc
-	)
+	var mp memory.Peak
+	// var cancel context.CancelFunc
+	
 	memory.Printer = log.Printf
 
 	// go func() {
