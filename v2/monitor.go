@@ -64,10 +64,11 @@ func (m *Monitor) Register(tag string, delay ...time.Duration) {
 	_, total, _, _, _ := mem(&m.Peaks[tag].mem)
 	m.Peaks[tag].Total = total
 
-	m.monitor(tag, map[bool]time.Duration{
-		true:  delay[0],
-		false: time.Second,
-	}[len(delay) > 0])
+	duration := time.Second
+	if len(delay) > 0 {
+		duration = delay[0]
+	}
+	m.monitor(tag, duration)
 }
 
 // Shut shuts the monitoring to a memory monitor.
