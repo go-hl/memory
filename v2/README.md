@@ -26,35 +26,48 @@ import (
 	"github.com/go-hl/memory/v2"
 )
 
+func usingPeak() {
+	var mp memory.Peak
+	prints := memory.Prints{All: true}
+	cancel := mp.CheckSleep(time.Second, prints) // start check memory peak
+
+	processes()
+	executions()
+
+	cancel() // stop check memory peak
+	runtime.GC()
+	memory.Stats(prints) // single print memory stats
+	log.Println(mp)      // print the collected memory peak
+}
+
+func usingMonitor() {
+	var mm memory.Monitor
+	prints := memory.Prints{All: true}
+
+	mm.Register("processes") // begin monitor memory for this one
+	processes()
+	mm.Shut("processes") // end monitor memory for this one
+
+	mm.Register("executions")
+	executions()
+	mm.Shut("executions")
+
+	runtime.GC()
+	memory.Stats(prints) // single print memory stats
+	mm.Log()             // print the monitored memory
+}
+
 func init() {
 	memory.Printer = log.Printf // this is optional
 }
 
 func main() {
-	var mp memory.Peak
-	prints := memory.Prints{All: true}
-
-	// can call (many times) before the parts you desire check
-	// or in begin of the program
-	cancel := mp.CheckSleep(time.Second, prints)
-
-	process()
-
-	// also can call (many times) after the parts you desire finish the check
-	// or in ending of the program
-	// cancel()
-	// log.Println(mp)
-
-	executions()
-
-	cancel()        // stop collect and print stats
-	log.Println(mp) // print the collect memory peak
-
+	usingPeak()
 	runtime.GC()
-	memory.Stats(prints) // single print stats
+	usingMonitor()
 }
 
-func process() {
+func processes() {
 	log.Println("processing anything")
 
 	alloc := make(map[string]int)
