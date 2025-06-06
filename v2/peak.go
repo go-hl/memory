@@ -47,11 +47,10 @@ func (p *Peak) CheckSleep(delay time.Duration, prints ...Prints) context.CancelF
 // Works like [CheckSleep].
 func (p *Peak) CheckTicker(delay time.Duration, prints ...Prints) context.CancelFunc {
 	ctx, cancel := context.WithCancel(context.Background())
-
 	ticker := time.NewTicker(delay)
-	defer ticker.Stop()
 
 	go func() {
+		defer ticker.Stop()
 		for {
 			select {
 			case <-ctx.Done():
