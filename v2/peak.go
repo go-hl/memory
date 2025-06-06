@@ -23,7 +23,7 @@ func (p *Peak) update(alloc, sys uint64) {
 }
 
 // CheckSleep stay checking memory stats in a simple infinite loop.
-// Works like [CheckTicker].
+// Works like [Peak.CheckTicker].
 func (p *Peak) CheckSleep(delay time.Duration, prints ...Prints) context.CancelFunc {
 	ctx, cancel := context.WithCancel(context.Background())
 
@@ -43,8 +43,8 @@ func (p *Peak) CheckSleep(delay time.Duration, prints ...Prints) context.CancelF
 	return cancel
 }
 
-// CheckTicker stay checking memory stats in a for select with *time.Ticker.
-// Works like [CheckSleep].
+// CheckTicker stay checking memory stats in a for select with *[time.Ticker].
+// Works like [Peak.CheckSleep].
 func (p *Peak) CheckTicker(delay time.Duration, prints ...Prints) context.CancelFunc {
 	ctx, cancel := context.WithCancel(context.Background())
 	ticker := time.NewTicker(delay)

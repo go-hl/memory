@@ -26,11 +26,11 @@ type Prints struct {
 	// All is all available stats.
 	All bool
 
-	// Allocs is an alias to [Alloc] and [Total] stats.
+	// Allocs is an alias to [Prints.Alloc] and [Prints.Total] stats.
 	Allocs bool
-	// Memory is an alias to [Allocs] and [Sys] stats.
+	// Memory is an alias to [Prints.Allocs] and [Prints.Sys] stats.
 	Memory bool
-	// GCs is an alias to [GCF] and [GC] stats.
+	// GCs is an alias to [Prints.GCF] and [Prints.GC] stats.
 	GCs bool
 
 	// Alloc is the atual memory allocated in Heap ([runtime.MemStats.Alloc])
