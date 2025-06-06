@@ -2,8 +2,8 @@ package memory
 
 import "runtime"
 
-func mem() (uint64, uint64, uint64, uint32, uint32) {
-	runtime.ReadMemStats(&Mem)
+func mem(mem *runtime.MemStats) (uint64, uint64, uint64, uint32, uint32) {
+	runtime.ReadMemStats(mem)
 	return Mem.Alloc, Mem.TotalAlloc, Mem.Sys, Mem.NumForcedGC, Mem.NumGC
 }
 
@@ -14,7 +14,7 @@ func mem() (uint64, uint64, uint64, uint32, uint32) {
 //  1. Forced execution cycles of GC ([runtime.MemStats.NumForcedGC])
 //  1. Total execution cycles of GC ([runtime.MemStats.NumGC])
 func Stats(prints ...Prints) (alloc, total, sys uint64, gcf, gc uint32) {
-	alloc, total, sys, gcf, gc = mem()
+	alloc, total, sys, gcf, gc = mem(&Mem)
 	print(stats, alloc, total, sys, gcf, gc, prints...)
 	return
 }

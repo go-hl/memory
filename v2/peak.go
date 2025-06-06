@@ -74,7 +74,7 @@ func (p Peak) Print(prints ...Prints) {
 	} else {
 		prints = []Prints{{Alloc: true, Sys: true}}
 	}
-	_, total, _, gcf, gc := mem()
+	_, total, _, gcf, gc := mem(&Mem)
 	print(peak, p.Alloc, total, p.Sys, gcf, gc, prints...)
 }
 
