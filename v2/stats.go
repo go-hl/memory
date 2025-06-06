@@ -4,7 +4,7 @@ import "runtime"
 
 func mem(mem *runtime.MemStats) (uint64, uint64, uint64, uint32, uint32) {
 	runtime.ReadMemStats(mem)
-	return Mem.Alloc, Mem.TotalAlloc, Mem.Sys, Mem.NumForcedGC, Mem.NumGC
+	return mem.Alloc, mem.TotalAlloc, mem.Sys, mem.NumForcedGC, mem.NumGC
 }
 
 // Stats can prints and returns the:
