@@ -2,24 +2,31 @@
 
 Come capabilities to log and get some program and system memory stats.
 
+## Install
+
+Run:
+```
+go get -u "github.com/go-hl/memory"
+```
+
 ## Usage
 
 Example:
-
 ```go
 package main
 
 import (
 	"log"
-	"memory/memory"
 	"runtime"
 	"time"
+
+	"github.com/go-hl/memory"
 )
 
 func main() {
 	var mp memory.Peak
 	// var cancel context.CancelFunc
-	
+
 	memory.Printer = log.Printf
 
 	// go func() {
